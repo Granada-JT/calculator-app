@@ -4,40 +4,38 @@
     let state: string | null = null;
 
     function setCharacters(value: string | number): void {
-      if (consoleValue === "0" || state === "equal") {
+        if (consoleValue === "0" || state === "equal") {
         consoleValue = "";
-      }
-      if (state === "equal") {
+        }
+        if (state === "equal") {
         state = null;
-      }
-      if (value === "C") {
+        }
+        if (value === "C") {
         total = 0;
         state = null;
         consoleValue = "";
         return;
-      }
-      consoleValue += value.toString();
-      console.log(consoleValue)
+        }
+        consoleValue += value.toString();
+        console.log(consoleValue)
     }
-  
-
 
     async function getEquation() {
 
-      console.log(consoleValue)
+        const equation = consoleValue
+        console.log(equation)
 
-      await fetch('api/calculate', {
+        await fetch('api/calculate', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          expression: consoleValue
-        })
-      });
+        body: JSON.stringify({ equation })
+        });
 
     }
-  </script>
+
+</script>
   
   <style>
     .calculator {
