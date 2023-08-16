@@ -23,7 +23,6 @@
     async function getEquation() {
 
         const equation = consoleValue
-        console.log(equation)
 
         await fetch('api/calculate', {
         method: 'POST',
