@@ -64,8 +64,7 @@ function evaluateExpression(expression: string): number {
   }
 
   const finalResult = outputStack[0];
-  const roundedResult = parseFloat(finalResult.toFixed(10)); // Round to 10 decimal places
-  console.log(roundedResult);
+  const roundedResult = parseFloat(finalResult.toFixed(10));
   return roundedResult;
 }
 
@@ -76,10 +75,6 @@ export const POST: RequestHandler = async (event) => {
     const data = await event.request.json();
     const equation = data.equation;
     const result = evaluateExpression(equation);
-
-    console.log(typeof equation);
-    console.log(equation);
-    console.log(result);
 
     return new Response(
       JSON.stringify({
@@ -101,7 +96,7 @@ export const POST: RequestHandler = async (event) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        status: 400, // Bad request status
+        status: 400
       }
     );
   }

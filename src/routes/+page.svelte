@@ -4,7 +4,6 @@
 
   function setCharacters(value: string | number): void {
     if (consoleValue === "0" || answer !== undefined) {
-      // Clear the consoleValue and answer variables
       consoleValue = "";
       answer = undefined;
     }
@@ -17,11 +16,14 @@
       return;
     }
     consoleValue += value.toString();
-    console.log(consoleValue);
   }
 
   async function getEquation() {
     const equation = consoleValue;
+
+    if (consoleValue === "") {
+      return false;
+    }
 
     const response = await fetch('api/calculate', {
       method: 'POST',
@@ -33,17 +35,20 @@
 
     if (response.ok) {
       const data = await response.json();
-      const result = data.result; // Extract the result from the response
+      const result = data.result;
       answer = result;
-      console.log(answer);
-      console.log(result); // Display the result in the console or update your UI
     } else {
-      console.log('Error:', response.statusText);
+      return false;
     }
   }
 </script>
   
 <style>
+
+  :global(body) {
+      background-color: #1a4a89;
+      transition: background-color 0.3s
+  }
   .calculator {
     position: absolute;
     top: 50%;
@@ -54,14 +59,15 @@
     border: 1px solid #eee;
     box-shadow: 2px 2px 2px #eee;
     padding: 10px;
+    background-color: white;
   }
   .calculator input {
     width: 93.8%;
-    padding: 20px 20px 20px -5px;
+    padding: 20px 20px 0px -5px;
     margin: 20px 0px -20px 15px;
     outline: none;
     text-align: right;
-    font-size: 20px;
+    font-size: 30px;
     border: none;
   }
 
@@ -87,6 +93,7 @@
     align-items: center;
     justify-content: center;
     margin: 5px 5px 5px 5px;
+    font-size: 30px;
   }
   .calculator .buttons .numbers {
     width: 75%;
@@ -103,22 +110,24 @@
     align-items: center;
     justify-content: center;
     margin: 5px 5px 5px 5px;
+    font-size: 30px;
   }
 
   .calculator .buttons .clear > div {
     display: flex;
-    flex-direction: column; /* Stack the buttons vertically */
-    align-items: center; /* Center the buttons horizontally */
+    flex-direction: column;
+    align-items: center;
     margin: 0 5px 0 0px;
   }
 
   .calculator .buttons .clear > div button {
     display: inline-block;
     width: 100%;
-    height: 100px; /* Adjust the height as needed */
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 20px;
   }
 
 
@@ -131,6 +140,7 @@
     height: 100%;
     color: #000000;
     margin: 0 0px 0 -5px;
+    font-size: 30px;
   }
 
 </style>
