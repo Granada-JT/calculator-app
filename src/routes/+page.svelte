@@ -3,7 +3,7 @@
   let answer: number | undefined;
 
   function setCharacters(value: string | number): void {
-    if (consoleValue === "0" || answer !== undefined) {
+    if (answer !== undefined) {
       consoleValue = "";
       answer = undefined;
     }
