@@ -49,15 +49,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
+    width: 600px;
+    height: 400px;
     border: 1px solid #eee;
     box-shadow: 2px 2px 2px #eee;
     padding: 10px;
   }
   .calculator input {
-    width: 100%;
+    width: 93.8%;
     padding: 20px 20px 20px -5px;
-    margin: 20px 0px -20px -3px;
+    margin: 20px 0px -20px 15px;
     outline: none;
     text-align: right;
     font-size: 20px;
@@ -71,39 +72,67 @@
   .calculator .buttons {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 50px;
   }
   .calculator .buttons .operations {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 100%;
+    margin: 0 10px 0 10px;
   }
   .calculator .buttons .operations button {
-    width: 24%;
+    width: 25%;
+    height: 40px; /* Adjust the height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 5px 5px 5px;
   }
   .calculator .buttons .numbers {
     width: 75%;
   }
   .calculator .buttons .numbers > div {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    margin: 0 10px 0 10px;
   }
   .calculator .buttons .numbers > div button {
     width: 32%;
+    height: 40px; /* Adjust the height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 5px 5px 5px;
   }
+
+  .calculator .buttons .clear > div {
+    display: flex;
+    flex-direction: column; /* Stack the buttons vertically */
+    align-items: center; /* Center the buttons horizontally */
+    margin: 0 5px 0 0px;
+  }
+
+  .calculator .buttons .clear > div button {
+    display: inline-block;
+    width: 100%;
+    height: 100px; /* Adjust the height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
   .calculator .equal {
     flex: 1;
+    margin: 0 10px 0 10px;
   }
   .calculator .equal button {
-    margin-left: 5%;
-    width: 95%;
-    height: 95%;
-    background: #00acee;
-    color: #eee;
+    width: 100%;
+    height: 100%;
+    color: #000000;
+    margin: 0 0px 0 -5px;
   }
-  .calculator button {
-    outline: none;
-  }
+
 </style>
   
 <div class="calculator">
@@ -165,6 +194,10 @@
         <button on:click={() => { setCharacters('.'); }}>
           .
         </button>
+      </div>
+    </div>
+    <div class="clear">
+      <div>
         <button on:click={() => { setCharacters('C'); }}>
           AC
         </button>
