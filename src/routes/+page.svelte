@@ -1,46 +1,47 @@
 <script lang="ts">
-    let consoleValue: string = "";
-    let state: string | null = null;
-    let answer: number | undefined;
+let consoleValue: string = "";
+let answer: number | undefined;
 
-    function setCharacters(value: string | number): void {
-        if (consoleValue === "0" || state === "equal") {
-        consoleValue = "";
-        }
-        if (state === "equal") {
-        state = null;
-        }
-        if (value === "C") {
-        answer = undefined;
-        state = null;
-        consoleValue = "";
-        return;
-        }
-        consoleValue += value.toString();
-        console.log(consoleValue)
-    }
-
-    async function getEquation() {
-    const equation = consoleValue;
-
-    const response = await fetch('api/calculate', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ equation })
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        const result = data.result; // Extract the result from the response
-        answer = result
-        console.log(answer);
-        console.log(result); // Display the result in the console or update your UI
-    } else {
-        console.log('Error:', response.statusText);
-    }
+function setCharacters(value: string | number): void {
+  if (consoleValue === "0" || answer !== undefined) {
+    // Clear the consoleValue and answer variables
+    consoleValue = "";
+    answer = undefined;
+  }
+  if (value === "C") {
+    consoleValue = "";
+    return;
+  }
+  if (value === "DEL") {
+    consoleValue = consoleValue.slice(0, -1);
+    return;
+  }
+  consoleValue += value.toString();
+  console.log(consoleValue);
 }
+
+async function getEquation() {
+  const equation = consoleValue;
+
+  const response = await fetch('api/calculate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ equation })
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    const result = data.result; // Extract the result from the response
+    answer = result;
+    console.log(answer);
+    console.log(result); // Display the result in the console or update your UI
+  } else {
+    console.log('Error:', response.statusText);
+  }
+}
+
 </script>
   
 <style>
@@ -61,7 +62,13 @@
     outline: none;
     text-align: right;
     font-size: 20px;
+    border: none;
   }
+
+  #input1 {
+    text-align: left;
+  }
+
   .calculator .buttons {
     display: flex;
     flex-wrap: wrap;
@@ -101,8 +108,8 @@
 </style>
   
 <div class="calculator">
-  <input type="text" bind:value="{consoleValue}" readonly={true} name="equation" />
-  <input type="text" bind:value="{answer}" readonly={true} name="equation" />
+  <input id="input1" type="text" bind:value="{consoleValue}" readonly={true} name="equation" />
+  <input id="input2" type="text" bind:value="{answer}" readonly={true} name="equation" />
   <div class="buttons">
     <div class="operations">
       <button on:click={() => { setCharacters('+'); }}>
@@ -160,7 +167,10 @@
           .
         </button>
         <button on:click={() => { setCharacters('C'); }}>
-          C
+          AC
+        </button>
+        <button on:click={() => { setCharacters('DEL'); }}>
+          DEL
         </button>
       </div>
     </div>
