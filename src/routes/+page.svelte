@@ -1,47 +1,46 @@
 <script lang="ts">
-let consoleValue: string = "";
-let answer: number | undefined;
+  let consoleValue: string = "";
+  let answer: number | undefined;
 
-function setCharacters(value: string | number): void {
-  if (consoleValue === "0" || answer !== undefined) {
-    // Clear the consoleValue and answer variables
-    consoleValue = "";
-    answer = undefined;
+  function setCharacters(value: string | number): void {
+    if (consoleValue === "0" || answer !== undefined) {
+      // Clear the consoleValue and answer variables
+      consoleValue = "";
+      answer = undefined;
+    }
+    if (value === "C") {
+      consoleValue = "";
+      return;
+    }
+    if (value === "DEL") {
+      consoleValue = consoleValue.slice(0, -1);
+      return;
+    }
+    consoleValue += value.toString();
+    console.log(consoleValue);
   }
-  if (value === "C") {
-    consoleValue = "";
-    return;
+
+  async function getEquation() {
+    const equation = consoleValue;
+
+    const response = await fetch('api/calculate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ equation })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const result = data.result; // Extract the result from the response
+      answer = result;
+      console.log(answer);
+      console.log(result); // Display the result in the console or update your UI
+    } else {
+      console.log('Error:', response.statusText);
+    }
   }
-  if (value === "DEL") {
-    consoleValue = consoleValue.slice(0, -1);
-    return;
-  }
-  consoleValue += value.toString();
-  console.log(consoleValue);
-}
-
-async function getEquation() {
-  const equation = consoleValue;
-
-  const response = await fetch('api/calculate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ equation })
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-    const result = data.result; // Extract the result from the response
-    answer = result;
-    console.log(answer);
-    console.log(result); // Display the result in the console or update your UI
-  } else {
-    console.log('Error:', response.statusText);
-  }
-}
-
 </script>
   
 <style>

@@ -33,7 +33,7 @@ function evaluateExpression(expression: string): number {
   const outputStack: number[] = [];
   const operatorStack: string[] = [];
 
-  const tokens = expression.match(/\d+|[+\-*/]/g);
+  const tokens = expression.match(/(?:\d+\.\d+|\d+|[+\-*/])/g);
 
   if (tokens !== null) {
     tokens.forEach((token) => {
@@ -63,9 +63,12 @@ function evaluateExpression(expression: string): number {
     outputStack.push(result);
   }
 
-  console.log(outputStack[0]);
-  return outputStack[0];
+  const finalResult = outputStack[0];
+  const roundedResult = parseFloat(finalResult.toFixed(10)); // Round to 10 decimal places
+  console.log(roundedResult);
+  return roundedResult;
 }
+
 
 // Request handler
 export const POST: RequestHandler = async (event) => {
