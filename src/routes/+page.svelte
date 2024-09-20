@@ -42,109 +42,7 @@
     }
   }
 </script>
-  
-<style>
 
-  :global(body) {
-      background-color: #1a4a89;
-      transition: background-color 0.3s
-  }
-  .calculator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 400px;
-    border: 1px solid #eee;
-    box-shadow: 2px 2px 2px #eee;
-    padding: 10px;
-    background-color: white;
-  }
-  .calculator input {
-    width: 93.8%;
-    padding: 20px 20px 0px -5px;
-    margin: 20px 0px -20px 15px;
-    outline: none;
-    text-align: right;
-    font-size: 30px;
-    border: none;
-  }
-
-  #input1 {
-    text-align: left;
-  }
-
-  .calculator .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 50px;
-  }
-  .calculator .buttons .operations {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    margin: 0 10px 0 10px;
-  }
-  .calculator .buttons .operations button {
-    width: 25%;
-    height: 40px; /* Adjust the height as needed */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 5px 5px 5px;
-    font-size: 30px;
-  }
-  .calculator .buttons .numbers {
-    width: 75%;
-  }
-  .calculator .buttons .numbers > div {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 0 10px 0 10px;
-  }
-  .calculator .buttons .numbers > div button {
-    width: 32%;
-    height: 40px; /* Adjust the height as needed */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 5px 5px 5px;
-    font-size: 30px;
-  }
-
-  .calculator .buttons .clear > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 5px 0 0px;
-  }
-
-  .calculator .buttons .clear > div button {
-    display: inline-block;
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-  }
-
-
-  .calculator .equal {
-    flex: 1;
-    margin: 0 10px 0 10px;
-  }
-  .calculator .equal button {
-    width: 100%;
-    height: 100%;
-    color: #000000;
-    margin: 0 0px 0 -5px;
-    font-size: 30px;
-  }
-
-</style>
-  
 <div class="calculator">
   <input id="input1" type="text" bind:value="{consoleValue}" readonly={true} name="equation" />
   <input id="input2" type="text" bind:value="{answer}" readonly={true} name="equation" />
@@ -223,3 +121,117 @@
     </div>
   </div>
 </div>
+  
+<style>
+
+  :global(body) {
+    background-color: #1a4a89;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  .calculator {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    max-height: 500px;
+    border: 1px solid #eee;
+    box-shadow: 2px 2px 2px #eee;
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+  }
+
+  .calculator input {
+    width: 93.8%;
+    padding: 20px 20px 0px -5px;
+    margin: 20px 0px -20px 15px;
+    outline: none;
+    text-align: right;
+    font-size: 30px;
+    border: none;
+  }
+
+  #input1 {
+    text-align: left;
+  }
+
+  .calculator .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+
+  .calculator .buttons .operations {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0 10px 0 10px;
+  }
+  
+  .calculator .buttons .operations button {
+    width: 25%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 5px 5px 5px;
+    font-size: 30px;
+  }
+
+  .calculator .buttons .numbers {
+    width: 75%;
+  }
+
+  .calculator .buttons .numbers > div {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 10px 0 10px;
+  }
+
+  .calculator .buttons .numbers > div button {
+    width: 32%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 5px 5px 5px;
+    font-size: 30px;
+  }
+
+  .calculator .buttons .clear > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 5px 0 0px;
+  }
+
+  .calculator .buttons .clear > div button {
+    display: inline-block;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .equal {
+    width: 100%;
+    padding: 5px 15px;
+  }
+
+  .equal > button {
+    width: 100%;
+    height: 100%;
+    color: #000000;
+    font-size: 30px;
+  }
+
+</style>
