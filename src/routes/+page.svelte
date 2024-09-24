@@ -147,7 +147,7 @@
     background-color: white;
     border-radius: 10px;
   }
-
+  
   #output-div {
     display: flex;
     flex-direction: column;
