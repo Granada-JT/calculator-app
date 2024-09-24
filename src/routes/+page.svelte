@@ -140,8 +140,7 @@
   .calculator {
     width: 100%;
     max-width: 600px;
-    height: 100%;
-    max-height: 500px;
+    height: 500px;
     box-shadow: 6px 6px 6px #000000;
     padding: 10px;
     margin: 10px;
@@ -276,20 +275,9 @@
     box-shadow: 1px 1px 1px #000000;
   }
 
-  @media (max-width <= 480px) {
-
+  @media (width <= 480px) {
+    #output-div input {
+      width: 90%;
+    }
   }
-
-  @media (min-width >= 481px) and (max-width <= 768px) {
-
-  }
-
-  @media (min-width >= 769px) and (max-width <= 1024px) {
-
-  }
-
-  @media (min-width > 1024px) {
-
-  }
-
 </style>
