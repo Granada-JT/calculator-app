@@ -44,8 +44,10 @@
 </script>
 
 <div class="calculator">
-  <input id="input1" type="text" bind:value="{consoleValue}" readonly={true} name="equation" />
-  <input id="input2" type="text" bind:value="{answer}" readonly={true} name="equation" />
+  <div id="output-div">
+    <input type="text" bind:value="{consoleValue}" readonly={true} name="equation" />
+    <input id="answer" type="text" bind:value="{answer}" readonly={true} name="equation" />
+  </div>
   <div class="buttons">
     <div class="operations">
       <button on:click={() => { setCharacters('+'); }}>
@@ -61,51 +63,51 @@
         &divide;
       </button>
     </div>
-    <div class="numbers">
-      <div>
-        <button on:click={() => { setCharacters(7); }}>
-          7
-        </button>
-        <button on:click={() => { setCharacters(8); }}>
-          8
-        </button>
-        <button on:click={() => { setCharacters(9); }}>
-          9
-        </button>
+    <div class="button-row">
+      <div class="numbers">
+        <div>
+          <button on:click={() => { setCharacters(7); }}>
+            7
+          </button>
+          <button on:click={() => { setCharacters(8); }}>
+            8
+          </button>
+          <button on:click={() => { setCharacters(9); }}>
+            9
+          </button>
+        </div>
+        <div>
+          <button on:click={() => { setCharacters(4); }}>
+            4
+          </button>
+          <button on:click={() => { setCharacters(5); }}>
+            5
+          </button>
+          <button on:click={() => { setCharacters(6); }}>
+            6
+          </button>
+        </div>
+        <div>
+          <button on:click={() => { setCharacters(1); }}>
+            1
+          </button>
+          <button on:click={() => { setCharacters(2); }}>
+            2
+          </button>
+          <button on:click={() => { setCharacters(3); }}>
+            3
+          </button>
+        </div>
+        <div>
+          <button on:click={() => { setCharacters(0); }}>
+            0
+          </button>
+          <button on:click={() => { setCharacters('.'); }}>
+            .
+          </button>
+        </div>
       </div>
-      <div>
-        <button on:click={() => { setCharacters(4); }}>
-          4
-        </button>
-        <button on:click={() => { setCharacters(5); }}>
-          5
-        </button>
-        <button on:click={() => { setCharacters(6); }}>
-          6
-        </button>
-      </div>
-      <div>
-        <button on:click={() => { setCharacters(1); }}>
-          1
-        </button>
-        <button on:click={() => { setCharacters(2); }}>
-          2
-        </button>
-        <button on:click={() => { setCharacters(3); }}>
-          3
-        </button>
-      </div>
-      <div>
-        <button on:click={() => { setCharacters(0); }}>
-          0
-        </button>
-        <button on:click={() => { setCharacters('.'); }}>
-          .
-        </button>
-      </div>
-    </div>
-    <div class="clear">
-      <div>
+      <div class="clear">
         <button on:click={() => { setCharacters('C'); }}>
           AC
         </button>
@@ -138,64 +140,99 @@
   .calculator {
     width: 100%;
     max-width: 600px;
-    height: 100%;
-    max-height: 500px;
-    border: 1px solid #eee;
-    box-shadow: 2px 2px 2px #eee;
+    height: 500px;
+    box-shadow: 6px 6px 6px #000000;
     padding: 10px;
     margin: 10px;
     background-color: white;
     border-radius: 10px;
   }
-
-  .calculator input {
-    width: 93.8%;
-    padding: 20px 20px 0px -5px;
-    margin: 20px 0px -20px 15px;
-    outline: none;
+  
+  #output-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     text-align: right;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #000000;
+  }
+
+  #output-div input {
+    width: 95%;
+    outline: none;
     font-size: 30px;
     border: none;
+    border-radius: 10px;
+    padding: 10px;
   }
 
-  #input1 {
-    text-align: left;
+  #answer {
+    text-align: right;
   }
 
-  .calculator .buttons {
+  .buttons {
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 50px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
   }
 
-  .calculator .buttons .operations {
+  .buttons button {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #dbdbdb;
+    border: 1px solid black;
+    transition: background-color 0.2s ease;
+  }
+
+  .buttons button:hover {
+    background-color: #e5e5e5;
+  }
+
+  .buttons button:active {
+    background-color: #d5d5d5;
+  }
+
+  .button-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .operations {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-    margin: 0 10px 0 10px;
   }
   
-  .calculator .buttons .operations button {
+  .operations button {
     width: 25%;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px 5px 5px 5px;
+    margin: 5px;
     font-size: 30px;
   }
 
-  .calculator .buttons .numbers {
+  .numbers {
     width: 75%;
   }
 
-  .calculator .buttons .numbers > div {
+  .numbers > div {
     display: flex;
-    justify-content: space-evenly;
-    margin: 0 10px 0 10px;
+    justify-content: space-evenly
   }
 
-  .calculator .buttons .numbers > div button {
+  .numbers button {
     width: 32%;
     height: 40px;
     display: flex;
@@ -205,15 +242,16 @@
     font-size: 30px;
   }
 
-  .calculator .buttons .clear > div {
+  .clear {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 5px 0 0px;
+    justify-content: center;
+    width: 25%;
   }
 
-  .calculator .buttons .clear > div button {
-    display: inline-block;
+  .clear button {
+    display: flex;
     width: 100%;
     height: 100px;
     display: flex;
@@ -224,7 +262,9 @@
 
   .equal {
     width: 100%;
-    padding: 5px 15px;
+    display: flex;
+    margin: 0;
+    padding: 0;
   }
 
   .equal > button {
@@ -232,6 +272,12 @@
     height: 100%;
     color: #000000;
     font-size: 30px;
+    box-shadow: 1px 1px 1px #000000;
   }
 
+  @media (width <= 480px) {
+    #output-div input {
+      width: 90%;
+    }
+  }
 </style>

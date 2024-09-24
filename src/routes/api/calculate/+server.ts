@@ -33,7 +33,7 @@ function evaluateExpression(expression: string): number {
   const outputStack: number[] = [];
   const operatorStack: string[] = [];
 
-  const tokens = expression.match(/(?:\d+\.\d+|\d+|[+\-*/])/g);
+  const tokens = expression.match(/(?:\d+(?:\.\d*)?|\.\d+|[+\-*/])/g);
 
   if (tokens !== null) {
     tokens.forEach((token) => {
@@ -68,8 +68,6 @@ function evaluateExpression(expression: string): number {
   return roundedResult;
 }
 
-
-// Request handler
 export const POST: RequestHandler = async (event) => {
   try {
     const data = await event.request.json();

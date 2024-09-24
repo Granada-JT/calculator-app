@@ -8,5 +8,4 @@ export async function handle({ event, resolve }) {
 		html.replace(/{{ GA_M_ID }}/g, PUBLIC_GA_M_ID)
 	});
 	return response;
-  }
-  
+}
