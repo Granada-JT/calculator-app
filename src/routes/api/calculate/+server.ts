@@ -33,26 +33,36 @@ function evaluateExpression(expression: string): number {
   const outputStack: number[] = [];
   const operatorStack: string[] = [];
 
-  const tokens = expression.match(/(?:\d+(?:\.\d*)?|\.\d+|[+\-*/])/g);
+  const tokens = expression.match(/(?:\d+(?:\.\d*)?|\.\d+|[+\-*/()])/g);
 
   if (tokens !== null) {
-    tokens.forEach((token) => {
+    for (let i = 0; i < tokens.length; i++) {
+      let token = tokens[i];
+
       if (!isNaN(parseFloat(token))) {
         outputStack.push(parseFloat(token));
       } else if (isOperator(token)) {
-        while (
-          operatorStack.length > 0 &&
-          getPrecedence(operatorStack[operatorStack.length - 1]) >= getPrecedence(token)
-        ) {
-          const operator = operatorStack.pop() as string;
-          const operand2 = outputStack.pop() as number;
-          const operand1 = outputStack.pop() as number;
-          const result = applyOperator(operator, operand1, operand2);
-          outputStack.push(result);
+        if ((token === '+' || token === '-') && (i === 0 || isOperator(tokens[i - 1]) || tokens[i - 1] === '(')) {
+          if (i + 1 < tokens.length && !isNaN(parseFloat(tokens[i + 1]))) {
+            token = token + tokens[i + 1];
+            outputStack.push(parseFloat(token));
+            i++;
+          }
+        } else {
+          while (
+            operatorStack.length > 0 &&
+            getPrecedence(operatorStack[operatorStack.length - 1]) >= getPrecedence(token)
+          ) {
+            const operator = operatorStack.pop() as string;
+            const operand2 = outputStack.pop() as number;
+            const operand1 = outputStack.pop() as number;
+            const result = applyOperator(operator, operand1, operand2);
+            outputStack.push(result);
+          }
+          operatorStack.push(token);
         }
-        operatorStack.push(token);
       }
-    });
+    }
   }
 
   while (operatorStack.length > 0) {
