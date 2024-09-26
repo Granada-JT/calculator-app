@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 	let consoleValue = '';
-	let answer: number | undefined;
+	let answer: number | undefined | string;
 
 	function setCharacters(value: string | number): void {
 		if (answer !== undefined) {
@@ -40,7 +39,7 @@
 			answer = result;
 
 			if (answer === null) {
-				toast.push('Syntax Error');
+				answer = 'Syntax Error';
 			}
 		} else {
 			return false;
@@ -49,10 +48,18 @@
 </script>
 
 <div class="calculator">
-	<SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
 	<div id="output-div">
 		<input type="text" bind:value={consoleValue} readonly={true} name="equation" />
-		<input id="answer" type="text" bind:value={answer} readonly={true} name="equation" />
+		<input
+			id="answer"
+			type="text"
+			bind:value={answer}
+			readonly={true}
+			name="equation"
+			style={answer === 'Syntax Error'
+				? 'font-family: "Courier New", monospace; font-size: 18px; color: red; height: 34px;'
+				: ''}
+		/>
 	</div>
 	<div class="buttons">
 		<div class="operations">
@@ -240,6 +247,7 @@
 
 	#output-div input {
 		width: 95%;
+		height: 34px;
 		outline: none;
 		font-size: 30px;
 		border: none;
