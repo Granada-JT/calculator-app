@@ -32,10 +32,10 @@ function applyOperator(operator: string, operand1: number, operand2: number): nu
 function evaluateExpression(expression: string): number {
 	const outputStack: number[] = [];
 	const operatorStack: string[] = [];
-  
+
 	const tokens = expression.match(/(?:\d+(?:\.\d*)?|\.\d+|[+\-*/()])/g);
 
-	if (tokens !== null) {
+	if (tokens) {
 		for (let i = 0; i < tokens.length; i++) {
 			let token = tokens[i];
 
@@ -75,7 +75,7 @@ function evaluateExpression(expression: string): number {
 		const result = applyOperator(operator, operand1, operand2);
 		outputStack.push(result);
 	}
-
+  
 	const finalResult = outputStack[0];
 	const roundedResult = parseFloat(finalResult.toFixed(10));
 	return roundedResult;
