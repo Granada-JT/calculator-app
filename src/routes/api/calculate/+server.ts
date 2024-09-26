@@ -35,7 +35,11 @@ function evaluateExpression(expression: string): number {
 
 	const tokens = expression.match(/(?:\d+(?:\.\d*)?|\.\d+|[+\-*/()])/g);
 
-	if (tokens !== null) {
+
+
+  console.log('tokens: ', tokens)
+
+	if (tokens) {
 		for (let i = 0; i < tokens.length; i++) {
 			let token = tokens[i];
 
