@@ -25,10 +25,10 @@
 			return false;
 		}
 
-    if (!/^(\d*\.?\d*)([+\-*/](\d*\.?\d*))*$/.test(consoleValue)) {
-      answer = 'Syntax Error';
-      return;
-    }
+		if (!/^(\d*\.?\d*)([+\-*/](\d*\.?\d*))*$/.test(consoleValue)) {
+			answer = 'Syntax Error';
+			return;
+		}
 
 		const response = await fetch('api/calculate', {
 			method: 'POST',
@@ -46,8 +46,8 @@
 			if (answer === null) {
 				answer = 'Syntax Error';
 			}
-      
-      return
+
+			return;
 		} else {
 			return false;
 		}
@@ -359,7 +359,7 @@
 		margin: 0;
 		padding: 0;
 	}
-  
+
 	.equal > button {
 		width: 100%;
 		height: 100%;
