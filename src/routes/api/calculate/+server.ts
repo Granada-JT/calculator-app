@@ -32,7 +32,7 @@ function applyOperator(operator: string, operand1: number, operand2: number): nu
 function evaluateExpression(expression: string): number {
 	const outputStack: number[] = [];
 	const operatorStack: string[] = [];
-
+  
 	const tokens = expression.match(/(?:\d+(?:\.\d*)?|\.\d+|[+\-*/()])/g);
 
 	if (tokens !== null) {
