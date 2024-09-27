@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	let consoleValue = '';
 	let answer: number | undefined | string;
 
@@ -19,13 +21,13 @@
 	}
 
 	async function getEquation() {
-		const equation = consoleValue;
+		const equation = consoleValue.replace(/×/g, '*').replace(/÷/g, '/');
 
 		if (consoleValue === '') {
 			return false;
 		}
 
-		if (!/^(\d*\.?\d*)([+\-*/](\d*\.?\d*))*$/.test(consoleValue)) {
+		if (!/^(\d*\.?\d*)([+\-*/](\d*\.?\d*))*$/.test(equation)) {
 			answer = 'Syntax Error';
 			return;
 		}
@@ -52,6 +54,14 @@
 			return false;
 		}
 	}
+
+	onMount(() => {
+		const currentYear = new Date().getFullYear();
+		const copyright = document.getElementById('copyright');
+		if (copyright) {
+			copyright.innerText = `Calculator Crafted with Love by Jomar Granada ${currentYear}. All Rights Reserved.`;
+		}
+	});
 </script>
 
 <div class="calculator">
@@ -86,14 +96,14 @@
 			</button>
 			<button
 				on:click={() => {
-					setCharacters('*');
+					setCharacters('×');
 				}}
 			>
 				&times;
 			</button>
 			<button
 				on:click={() => {
-					setCharacters('/');
+					setCharacters('÷');
 				}}
 			>
 				&divide;
@@ -207,6 +217,27 @@
 		<div class="equal">
 			<button on:click={getEquation}> = </button>
 		</div>
+		<footer>
+			<div>
+				<div>
+					<a href="https://granada-jt.github.io/web-developer-portfolio/" target="_blank">
+						<img src="assets/images/jg-brand-nobg.png" alt="logo" id="logo" />
+					</a>
+					<a href="https://github.com/Granada-JT" target="_blank">
+						<img src="assets/images/github2.svg" alt="github" />
+					</a>
+					<a href="https://www.linkedin.com/in/jomar-granada-a33604191/" target="_blank">
+						<img src="assets/images/linkedin2.svg" class="w-100 socialsPics" alt="linkedin" />
+					</a>
+					<a href="mailto:jomart.granada@gmail.com" target="_blank" id="email">
+						<img src="assets/images/envelope.svg" alt="email" />
+					</a>
+				</div>
+				<p id="copyright">
+					Calculator Crafted with Love by Jomar Granada © 2024. All Rights Reserved.
+				</p>
+			</div>
+		</footer>
 	</div>
 </div>
 
@@ -368,9 +399,70 @@
 		box-shadow: 1px 1px 1px #000000;
 	}
 
+	footer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: auto;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		text-align: center;
+	}
+
+	#logo {
+		width: 40px;
+		height: 40px;
+		padding-right: 16px;
+		border-right: 2px solid black;
+	}
+
+	#email {
+		margin-top: 9px;
+	}
+
+	footer > div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: 600px;
+		height: 100px;
+		margin: 20px;
+		border-radius: 10px;
+		font-family: Arial, sans-serif;
+		font-size: 14px;
+	}
+
+	footer > div > div {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		max-width: 200px;
+	}
+
+	a > img {
+		width: 30px;
+		height: 30px;
+		margin-top: 2px;
+	}
+
 	@media (width <= 480px) {
 		#output-div input {
 			width: 90%;
+		}
+
+		footer {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: static;
+			width: 100%;
+			text-align: center;
+			margin-top: 50px;
 		}
 	}
 </style>
