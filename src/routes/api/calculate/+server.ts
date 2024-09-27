@@ -75,7 +75,7 @@ function evaluateExpression(expression: string): number {
 		const result = applyOperator(operator, operand1, operand2);
 		outputStack.push(result);
 	}
-
+  
 	const finalResult = outputStack[0];
 	const roundedResult = parseFloat(finalResult.toFixed(10));
 	return roundedResult;
