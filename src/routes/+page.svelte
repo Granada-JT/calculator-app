@@ -222,16 +222,16 @@
 		<div>
 			<div>
 				<a href="https://granada-jt.github.io/web-developer-portfolio/" target="_blank">
-					<img src="/src/assets/images/jg-brand-nobg.png" alt="logo" id="logo" />
+					<img src="assets/images/jg-brand-nobg.png" alt="logo" id="logo" />
 				</a>
 				<a href="https://github.com/Granada-JT" target="_blank">
-					<img src="/src/assets/images/github2.svg" alt="github" />
+					<img src="assets/images/github2.svg" alt="github" />
 				</a>
 				<a href="https://www.linkedin.com/in/jomar-granada-a33604191/" target="_blank">
-					<img src="/src/assets/images/linkedin2.svg" class="w-100 socialsPics" alt="linkedin" />
+					<img src="assets/images/linkedin2.svg" class="w-100 socialsPics" alt="linkedin" />
 				</a>
 				<a href="mailto:jomart.granada@gmail.com" target="_blank" id="email">
-					<img src="/src/assets/images/envelope.svg" alt="email" />
+					<img src="assets/images/envelope.svg" alt="email" />
 				</a>
 			</div>
 			<p id="copyright">
