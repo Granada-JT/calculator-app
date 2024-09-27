@@ -19,13 +19,13 @@
 	}
 
 	async function getEquation() {
-		const equation = consoleValue;
+		const equation = consoleValue.replace(/×/g, '*').replace(/÷/g, '/');
 
 		if (consoleValue === '') {
 			return false;
 		}
 
-		if (!/^(\d*\.?\d*)([+\-*/](\d*\.?\d*))*$/.test(consoleValue)) {
+		if (!/^(\d*\.?\d*)([+\-*/](\d*\.?\d*))*$/.test(equation)) {
 			answer = 'Syntax Error';
 			return;
 		}
@@ -86,14 +86,14 @@
 			</button>
 			<button
 				on:click={() => {
-					setCharacters('*');
+					setCharacters('×');
 				}}
 			>
 				&times;
 			</button>
 			<button
 				on:click={() => {
-					setCharacters('/');
+					setCharacters('÷');
 				}}
 			>
 				&divide;
