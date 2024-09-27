@@ -59,7 +59,7 @@
 		const currentYear = new Date().getFullYear();
 		const copyright = document.getElementById('copyright');
 		if (copyright) {
-			copyright.innerText = `Calculator Crafted with Love by Jomar Granada ${currentYear}. All Rights Reserved.`;
+			copyright.innerText = `Crafted with Love by Jomar Granada © ${currentYear}. All Rights Reserved.`;
 		}
 	});
 </script>
@@ -233,9 +233,7 @@
 						<img src="assets/images/envelope.svg" alt="email" />
 					</a>
 				</div>
-				<p id="copyright">
-					Calculator Crafted with Love by Jomar Granada © 2024. All Rights Reserved.
-				</p>
+				<p id="copyright">Crafted with Love by Jomar Granada © 2024. All Rights Reserved.</p>
 			</div>
 		</footer>
 	</div>
