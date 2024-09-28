@@ -49,9 +49,11 @@
 
 			if (answer === null) {
 				answer = 'Syntax Error';
+				showCopyBtns = false;
+			} else {
+				showCopyBtns = true;
 			}
 
-			showCopyBtns = true;
 			return;
 		} else {
 			return false;
@@ -229,7 +231,7 @@
 				</button>
 			</div>
 		</div>
-		<div class="equal">
+		<div class="equal" class:equal-hide={showCopyBtns}>
 			<button on:click={getEquation}> = </button>
 		</div>
 		<div class="copy-btns" class:copy-btns-show={showCopyBtns}>
@@ -280,7 +282,7 @@
 	.calculator {
 		width: 100%;
 		max-width: 600px;
-		max-height: 700px;
+		max-height: 500px;
 		box-shadow: 6px 6px 6px #000000;
 		padding: 10px;
 		margin: 10px;
@@ -416,6 +418,10 @@
 		box-shadow: 1px 1px 1px #000000;
 	}
 
+	.equal-hide {
+		display: none;
+	}
+
 	footer {
 		display: flex;
 		align-items: center;
@@ -470,10 +476,16 @@
 	.copy-btns {
 		display: none;
 		width: 100%;
+		height: 100%;
+		font-size: 30px;
+		margin: 0;
+		padding: 0;
 	}
 
 	.copy-btns button {
 		width: 100%;
+		height: 76px;
+		box-shadow: 1px 1px 1px #000000;
 	}
 
 	.copy-btns-show {
