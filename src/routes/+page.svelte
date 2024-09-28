@@ -539,7 +539,21 @@
 			text-align: center;
 			margin-top: 50px;
 		}
+	}
 
+	@media (height <= 800px) {
+		:global(.toast) {
+			margin-top: 20px;
+		}
+	}
+
+	@media (height >= 801px) and (height <= 1023px) {
+		:global(.toast) {
+			margin-top: 65px;
+		}
+	}
+
+	@media (height >= 1024px) and (height <= 1280px) {
 		:global(.toast) {
 			margin-top: 180px;
 		}
