@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 
 	let consoleValue = '';
 	let answer: number | undefined | string;
@@ -63,12 +64,34 @@
 	function handleCopyEquation() {
 		if (typeof consoleValue === 'string') {
 			navigator.clipboard.writeText(consoleValue);
+			toast.pop();
+			toast.push('Equation Copied Successfully!', {
+				theme: {
+					'--toastColor': '#000000',
+					'--toastBackground': '#FFFFFF',
+					'--toastBarHeight': 0,
+					'--toastBorderRadius': '10px'
+				},
+				classes: ['toast'],
+				dismissable: false
+			});
 		}
 	}
 
 	function handleCopyAnswer() {
 		if (typeof answer === 'number') {
 			navigator.clipboard.writeText(answer.toString());
+			toast.pop();
+			toast.push('Answer Copied Successfully!', {
+				theme: {
+					'--toastColor': '#000000',
+					'--toastBackground': '#FFFFFF',
+					'--toastBarHeight': 0,
+					'--toastBorderRadius': '10px'
+				},
+				classes: ['toast'],
+				dismissable: false
+			});
 		}
 	}
 
@@ -81,6 +104,7 @@
 	});
 </script>
 
+<SvelteToast options={{ intro: { y: -192 } }} />
 <div class="calculator">
 	<div id="output-div">
 		<input type="text" bind:value={consoleValue} readonly={true} name="equation" />
@@ -262,9 +286,9 @@
 
 <style>
 	:root {
-		--toastContainerTop: auto;
+		--toastContainerTop: 0;
 		--toastContainerRight: auto;
-		--toastContainerBottom: 8rem;
+		--toastContainerBottom: auto;
 		--toastContainerLeft: calc(50vw - 8rem);
 	}
 
@@ -277,6 +301,15 @@
 		height: 100vh;
 		margin: 0;
 		padding: 0;
+	}
+
+	:global(.toast) {
+		box-shadow: 6px 6px 6px #000000;
+		margin-top: 300px;
+		border-radius: 10px;
+		font-family: Arial, sans-serif;
+		font-weight: 600;
+		text-align: center;
 	}
 
 	.calculator {
@@ -505,6 +538,10 @@
 			width: 100%;
 			text-align: center;
 			margin-top: 50px;
+		}
+
+		:global(.toast) {
+			margin-top: 180px;
 		}
 	}
 </style>
