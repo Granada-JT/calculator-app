@@ -64,6 +64,12 @@
 		}
 	}
 
+	function handleCopyAnswer() {
+		if (typeof answer === 'number') {
+			navigator.clipboard.writeText(answer.toString());
+		}
+	}
+
 	onMount(() => {
 		const currentYear = new Date().getFullYear();
 		const copyright = document.getElementById('copyright');
@@ -228,6 +234,7 @@
 		</div>
 		<div class="copy-btns" class:copy-btns-show={showCopyBtns}>
 			<button on:click={handleCopyEquation}>Copy Equation</button>
+			<button on:click={handleCopyAnswer}>Copy Answer</button>
 		</div>
 	</div>
 	<footer>
