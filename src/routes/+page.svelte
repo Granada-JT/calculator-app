@@ -3,11 +3,13 @@
 
 	let consoleValue = '';
 	let answer: number | undefined | string;
+	let showCopyBtns = false;
 
 	function setCharacters(value: string | number): void {
 		if (answer !== undefined) {
 			consoleValue = '';
 			answer = undefined;
+			showCopyBtns = false;
 		}
 		if (value === 'C') {
 			consoleValue = '';
@@ -49,9 +51,16 @@
 				answer = 'Syntax Error';
 			}
 
+			showCopyBtns = true;
 			return;
 		} else {
 			return false;
+		}
+	}
+
+	function handleCopyEquation() {
+		if (typeof consoleValue === 'string') {
+			navigator.clipboard.writeText(consoleValue);
 		}
 	}
 
@@ -217,26 +226,29 @@
 		<div class="equal">
 			<button on:click={getEquation}> = </button>
 		</div>
-		<footer>
-			<div>
-				<div>
-					<a href="https://granada-jt.github.io/web-developer-portfolio/" target="_blank">
-						<img src="assets/images/jg-brand-nobg.png" alt="logo" id="logo" />
-					</a>
-					<a href="https://github.com/Granada-JT" target="_blank">
-						<img src="assets/images/github2.svg" alt="github" />
-					</a>
-					<a href="https://www.linkedin.com/in/jomar-granada-a33604191/" target="_blank">
-						<img src="assets/images/linkedin2.svg" class="w-100 socialsPics" alt="linkedin" />
-					</a>
-					<a href="mailto:jomart.granada@gmail.com" target="_blank" id="email">
-						<img src="assets/images/envelope.svg" alt="email" />
-					</a>
-				</div>
-				<p id="copyright">Crafted with Love by Jomar Granada © 2024. All Rights Reserved.</p>
-			</div>
-		</footer>
+		<div class="copy-btns" class:copy-btns-show={showCopyBtns}>
+			<button on:click={handleCopyEquation}>Copy Equation</button>
+		</div>
 	</div>
+	<footer>
+		<div>
+			<div>
+				<a href="https://granada-jt.github.io/web-developer-portfolio/" target="_blank">
+					<img src="assets/images/jg-brand-nobg.png" alt="logo" id="logo" />
+				</a>
+				<a href="https://github.com/Granada-JT" target="_blank">
+					<img src="assets/images/github2.svg" alt="github" />
+				</a>
+				<a href="https://www.linkedin.com/in/jomar-granada-a33604191/" target="_blank">
+					<img src="assets/images/linkedin2.svg" class="w-100 socialsPics" alt="linkedin" />
+				</a>
+				<a href="mailto:jomart.granada@gmail.com" target="_blank" id="email">
+					<img src="assets/images/envelope.svg" alt="email" />
+				</a>
+			</div>
+			<p id="copyright">Crafted with Love by Jomar Granada © 2024. All Rights Reserved.</p>
+		</div>
+	</footer>
 </div>
 
 <style>
@@ -261,7 +273,7 @@
 	.calculator {
 		width: 100%;
 		max-width: 600px;
-		height: 500px;
+		max-height: 700px;
 		box-shadow: 6px 6px 6px #000000;
 		padding: 10px;
 		margin: 10px;
@@ -446,6 +458,19 @@
 		width: 30px;
 		height: 30px;
 		margin-top: 2px;
+	}
+
+	.copy-btns {
+		display: none;
+		width: 100%;
+	}
+
+	.copy-btns button {
+		width: 100%;
+	}
+
+	.copy-btns-show {
+		display: flex;
 	}
 
 	@media (width <= 480px) {
