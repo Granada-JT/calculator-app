@@ -1,5 +1,3 @@
-// src/hooks.server.js
-
 import { PUBLIC_GA_M_ID } from '$env/static/public';
 
 export async function handle({ event, resolve }) {
