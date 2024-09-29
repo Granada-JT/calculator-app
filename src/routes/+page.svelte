@@ -95,7 +95,7 @@
 			});
 		}
 	}
-
+  
 	onMount(() => {
 		const currentYear = new Date().getFullYear();
 		const copyright = document.getElementById('copyright');
@@ -466,11 +466,11 @@
 		font-size: 30px;
 		box-shadow: 1px 1px 1px #000000;
 	}
-
+  
 	.equal-hide {
 		display: none;
 	}
-
+  
 	footer {
 		display: flex;
 		align-items: center;
@@ -543,7 +543,7 @@
 	.copy-btns-show {
 		display: flex;
 	}
-
+  
 	@media (width <= 480px) {
 		#output-div input {
 			width: 90%;
