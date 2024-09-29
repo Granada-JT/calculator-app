@@ -28,8 +28,19 @@ function applyOperator(operator: string, operand1: number, operand2: number): nu
 	}
 }
 
+// Helper function to normalize multiple consecutive + and - signs
+function normalizeSigns(expression: string): string {
+	return expression.replace(/([+-]){2,}/g, (match) => {
+		const minusCount = [...match].filter((char) => char === '-').length;
+
+		return minusCount % 2 === 0 ? '+' : '-';
+	});
+}
+
 // Function to evaluate a mathematical expression
 function evaluateExpression(expression: string): number {
+	expression = normalizeSigns(expression);
+
 	const outputStack: number[] = [];
 	const operatorStack: string[] = [];
 
@@ -75,7 +86,7 @@ function evaluateExpression(expression: string): number {
 		const result = applyOperator(operator, operand1, operand2);
 		outputStack.push(result);
 	}
-  
+
 	const finalResult = outputStack[0];
 	const roundedResult = parseFloat(finalResult.toFixed(10));
 	return roundedResult;

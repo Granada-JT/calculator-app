@@ -1,29 +1,33 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 
-	let consoleValue = '';
+	let equationValue = '';
+	let equationInput: HTMLInputElement;
 	let answer: number | undefined | string;
+	let showCopyBtns = false;
 
 	function setCharacters(value: string | number): void {
 		if (answer !== undefined) {
-			consoleValue = '';
+			equationValue = '';
 			answer = undefined;
+			showCopyBtns = false;
 		}
 		if (value === 'C') {
-			consoleValue = '';
+			equationValue = '';
 			return;
 		}
 		if (value === 'DEL') {
-			consoleValue = consoleValue.slice(0, -1);
+			equationValue = equationValue.slice(0, -1);
 			return;
 		}
-		consoleValue += value.toString();
+		equationValue += value.toString();
 	}
 
 	async function getEquation() {
-		const equation = consoleValue.replace(/×/g, '*').replace(/÷/g, '/');
+		const equation = equationValue.replace(/×/g, '*').replace(/÷/g, '/');
 
-		if (consoleValue === '') {
+		if (equationValue === '') {
 			return false;
 		}
 
@@ -47,6 +51,9 @@
 
 			if (answer === null) {
 				answer = 'Syntax Error';
+				showCopyBtns = false;
+			} else {
+				showCopyBtns = true;
 			}
 
 			return;
@@ -55,18 +62,68 @@
 		}
 	}
 
+	function handleCopyEquation() {
+		if (typeof equationValue === 'string') {
+			navigator.clipboard.writeText(equationValue);
+			toast.pop();
+			toast.push('Equation Copied Successfully!', {
+				theme: {
+					'--toastColor': '#000000',
+					'--toastBackground': '#FFFFFF',
+					'--toastBarHeight': 0,
+					'--toastBorderRadius': '10px'
+				},
+				classes: ['toast'],
+				dismissable: false
+			});
+		}
+	}
+
+	function handleCopyAnswer() {
+		if (typeof answer === 'number') {
+			navigator.clipboard.writeText(answer.toString());
+			toast.pop();
+			toast.push('Answer Copied Successfully!', {
+				theme: {
+					'--toastColor': '#000000',
+					'--toastBackground': '#FFFFFF',
+					'--toastBarHeight': 0,
+					'--toastBorderRadius': '10px'
+				},
+				classes: ['toast'],
+				dismissable: false
+			});
+		}
+	}
+  
 	onMount(() => {
 		const currentYear = new Date().getFullYear();
 		const copyright = document.getElementById('copyright');
 		if (copyright) {
-			copyright.innerText = `Calculator Crafted with Love by Jomar Granada ${currentYear}. All Rights Reserved.`;
+			copyright.innerText = `Crafted with Love by Jomar Granada © ${currentYear}. All Rights Reserved.`;
 		}
 	});
+
+	function scrollToEnd(equationValue: string) {
+		if (equationInput && equationValue) {
+			equationInput.scrollLeft = equationInput.scrollWidth;
+		}
+	}
+
+	$: scrollToEnd(equationValue);
 </script>
 
+<SvelteToast options={{ intro: { y: -192 } }} />
 <div class="calculator">
 	<div id="output-div">
-		<input type="text" bind:value={consoleValue} readonly={true} name="equation" />
+		<input
+			type="text"
+			bind:value={equationValue}
+			readonly={true}
+			name="equation"
+			style="overflow: hidden; white-space: nowrap; text-align: left;"
+			bind:this={equationInput}
+		/>
 		<input
 			id="answer"
 			type="text"
@@ -214,38 +271,40 @@
 				</button>
 			</div>
 		</div>
-		<div class="equal">
+		<div class="equal" class:equal-hide={showCopyBtns}>
 			<button on:click={getEquation}> = </button>
 		</div>
-		<footer>
-			<div>
-				<div>
-					<a href="https://granada-jt.github.io/web-developer-portfolio/" target="_blank">
-						<img src="assets/images/jg-brand-nobg.png" alt="logo" id="logo" />
-					</a>
-					<a href="https://github.com/Granada-JT" target="_blank">
-						<img src="assets/images/github2.svg" alt="github" />
-					</a>
-					<a href="https://www.linkedin.com/in/jomar-granada-a33604191/" target="_blank">
-						<img src="assets/images/linkedin2.svg" class="w-100 socialsPics" alt="linkedin" />
-					</a>
-					<a href="mailto:jomart.granada@gmail.com" target="_blank" id="email">
-						<img src="assets/images/envelope.svg" alt="email" />
-					</a>
-				</div>
-				<p id="copyright">
-					Calculator Crafted with Love by Jomar Granada © 2024. All Rights Reserved.
-				</p>
-			</div>
-		</footer>
+		<div class="copy-btns" class:copy-btns-show={showCopyBtns}>
+			<button on:click={handleCopyEquation}>Copy Equation</button>
+			<button on:click={handleCopyAnswer}>Copy Answer</button>
+		</div>
 	</div>
+	<footer>
+		<div>
+			<div>
+				<a href="https://granada-jt.github.io/web-developer-portfolio/" target="_blank">
+					<img src="assets/images/jg-brand-nobg.png" alt="logo" id="logo" />
+				</a>
+				<a href="https://github.com/Granada-JT" target="_blank">
+					<img src="assets/images/github2.svg" alt="github" />
+				</a>
+				<a href="https://www.linkedin.com/in/jomar-granada-a33604191/" target="_blank">
+					<img src="assets/images/linkedin2.svg" class="w-100 socialsPics" alt="linkedin" />
+				</a>
+				<a href="mailto:jomart.granada@gmail.com" target="_blank" id="email">
+					<img src="assets/images/envelope.svg" alt="email" />
+				</a>
+			</div>
+			<p id="copyright">Crafted with Love by Jomar Granada © 2024. All Rights Reserved.</p>
+		</div>
+	</footer>
 </div>
 
 <style>
 	:root {
-		--toastContainerTop: auto;
+		--toastContainerTop: 0;
 		--toastContainerRight: auto;
-		--toastContainerBottom: 8rem;
+		--toastContainerBottom: auto;
 		--toastContainerLeft: calc(50vw - 8rem);
 	}
 
@@ -260,10 +319,19 @@
 		padding: 0;
 	}
 
+	:global(.toast) {
+		box-shadow: 6px 6px 6px #000000;
+		margin-top: 300px;
+		border-radius: 10px;
+		font-family: Arial, sans-serif;
+		font-weight: 600;
+		text-align: center;
+	}
+
 	.calculator {
 		width: 100%;
 		max-width: 600px;
-		height: 500px;
+		max-height: 500px;
 		box-shadow: 6px 6px 6px #000000;
 		padding: 10px;
 		margin: 10px;
@@ -398,7 +466,11 @@
 		font-size: 30px;
 		box-shadow: 1px 1px 1px #000000;
 	}
-
+  
+	.equal-hide {
+		display: none;
+	}
+  
 	footer {
 		display: flex;
 		align-items: center;
@@ -450,6 +522,28 @@
 		margin-top: 2px;
 	}
 
+	.copy-btns {
+		display: none;
+		width: 100%;
+		height: 100%;
+		font-size: 30px;
+		margin: 0;
+		padding: 0;
+	}
+
+	.copy-btns button {
+		width: 100%;
+		height: 76px;
+		box-shadow: 1px 1px 1px #000000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.copy-btns-show {
+		display: flex;
+	}
+  
 	@media (width <= 480px) {
 		#output-div input {
 			width: 90%;
@@ -463,6 +557,24 @@
 			width: 100%;
 			text-align: center;
 			margin-top: 50px;
+		}
+	}
+
+	@media (height <= 800px) {
+		:global(.toast) {
+			margin-top: 20px;
+		}
+	}
+
+	@media (height >= 801px) and (height <= 1023px) {
+		:global(.toast) {
+			margin-top: 65px;
+		}
+	}
+
+	@media (height >= 1024px) and (height <= 1280px) {
+		:global(.toast) {
+			margin-top: 180px;
 		}
 	}
 </style>
