@@ -3,6 +3,7 @@
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 
 	let consoleValue = '';
+	let equationInput: HTMLInputElement;
 	let answer: number | undefined | string;
 	let showCopyBtns = false;
 
@@ -102,12 +103,27 @@
 			copyright.innerText = `Crafted with Love by Jomar Granada © ${currentYear}. All Rights Reserved.`;
 		}
 	});
+
+	function scrollToEnd(consoleValue: string) {
+		if (equationInput && consoleValue) {
+			equationInput.scrollLeft = equationInput.scrollWidth;
+		}
+	}
+
+	$: scrollToEnd(consoleValue);
 </script>
 
 <SvelteToast options={{ intro: { y: -192 } }} />
 <div class="calculator">
 	<div id="output-div">
-		<input type="text" bind:value={consoleValue} readonly={true} name="equation" />
+		<input
+			type="text"
+			bind:value={consoleValue}
+			readonly={true}
+			name="equation"
+			style="overflow: hidden; white-space: nowrap; text-align: left;"
+			bind:this={equationInput}
+		/>
 		<input
 			id="answer"
 			type="text"
