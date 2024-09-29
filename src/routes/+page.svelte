@@ -2,32 +2,32 @@
 	import { onMount } from 'svelte';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 
-	let consoleValue = '';
+	let equationValue = '';
 	let equationInput: HTMLInputElement;
 	let answer: number | undefined | string;
 	let showCopyBtns = false;
 
 	function setCharacters(value: string | number): void {
 		if (answer !== undefined) {
-			consoleValue = '';
+			equationValue = '';
 			answer = undefined;
 			showCopyBtns = false;
 		}
 		if (value === 'C') {
-			consoleValue = '';
+			equationValue = '';
 			return;
 		}
 		if (value === 'DEL') {
-			consoleValue = consoleValue.slice(0, -1);
+			equationValue = equationValue.slice(0, -1);
 			return;
 		}
-		consoleValue += value.toString();
+		equationValue += value.toString();
 	}
 
 	async function getEquation() {
-		const equation = consoleValue.replace(/×/g, '*').replace(/÷/g, '/');
+		const equation = equationValue.replace(/×/g, '*').replace(/÷/g, '/');
 
-		if (consoleValue === '') {
+		if (equationValue === '') {
 			return false;
 		}
 
@@ -63,8 +63,8 @@
 	}
 
 	function handleCopyEquation() {
-		if (typeof consoleValue === 'string') {
-			navigator.clipboard.writeText(consoleValue);
+		if (typeof equationValue === 'string') {
+			navigator.clipboard.writeText(equationValue);
 			toast.pop();
 			toast.push('Equation Copied Successfully!', {
 				theme: {
@@ -104,13 +104,13 @@
 		}
 	});
 
-	function scrollToEnd(consoleValue: string) {
-		if (equationInput && consoleValue) {
+	function scrollToEnd(equationValue: string) {
+		if (equationInput && equationValue) {
 			equationInput.scrollLeft = equationInput.scrollWidth;
 		}
 	}
 
-	$: scrollToEnd(consoleValue);
+	$: scrollToEnd(equationValue);
 </script>
 
 <SvelteToast options={{ intro: { y: -192 } }} />
@@ -118,7 +118,7 @@
 	<div id="output-div">
 		<input
 			type="text"
-			bind:value={consoleValue}
+			bind:value={equationValue}
 			readonly={true}
 			name="equation"
 			style="overflow: hidden; white-space: nowrap; text-align: left;"
